@@ -25,6 +25,7 @@
     "APP_DEBUG": "false",
     "LOG_CHANNEL": "stderr",
     "LOG_DEPRECATIONS_CHANNEL": "null",
-    "LOG_LEVEL": "info"
+    "LOG_LEVEL": "info",
+    "VIEW_COMPILED_PATH": "/tmp/views"
   }
 }
