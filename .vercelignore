@@ -13,3 +13,4 @@ storage/framework/testing
 database/database.sqlite
 tests
 .phpunit.result.cache
+!storage/framework/views
