@@ -12,33 +12,17 @@ if (file_exists($maintenance = $basePath.'/storage/framework/maintenance.php')) 
     require $maintenance;
 }
 
-require $basePath.'/vendor/autoload.php';
-
-// Ensure APP_BASE_PATH is correct for Vercel environment
-if (!isset($_ENV['APP_BASE_PATH'])) {
-    $_ENV['APP_BASE_PATH'] = $basePath;
+// Ensure APP_BASE_PATH is correct for Vercel environment.
+if (! isset($_ENV['APP_BASE_PATH'])) {
+    $_ENV['APP_BASE_PATH'] = dirname(__DIR__);
 }
 
-// Create the view compiled path under /tmp so Vercel can write to it.
 $viewCompiledPath = getenv('VIEW_COMPILED_PATH') ?: sys_get_temp_dir().'/views';
 if (! is_dir($viewCompiledPath)) {
     mkdir($viewCompiledPath, 0777, true);
 }
 
-try {
-    // Try to load the application
-    $app = require_once $basePath.'/bootstrap/app.php';
-    
-    // Check if the app was created properly
-    if (!($app instanceof Application)) {
-        throw new RuntimeException('Application not properly instantiated');
-    }
-
-    // Ensure the view service is registered before handling requests.
-    $app->register(\Illuminate\View\ViewServiceProvider::class);
-    
-    $app->handleRequest(Request::capture());
-} catch (Throwable $e) {
+require __DIR__.'/../public/index.php';
     // If there's an error bootstrapping, return a simple error response
     http_response_code(500);
     header('Content-Type: text/plain');
