@@ -1,0 +1,16 @@
+.git
+.gitignore
+node_modules
+npm-debug.log
+yarn-error.log
+composer.phar
+storage/logs
+storage/framework/cache
+storage/framework/sessions
+storage/framework/testing
+.env
+.env.*.local
+database/database.sqlite
+bootstrap/cache
+tests
+.phpunit.result.cache
