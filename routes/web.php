@@ -13,6 +13,11 @@ use App\Http\Controllers\PaymentController;
 |
 */
 
+// Diagnostic route for Vercel environment checks
+Route::get('/debug-raw', function () {
+    return new \Illuminate\Http\Response('OK', 200);
+});
+
 // Landing page - website kosong
 Route::get('/', function () {
     return view('welcome');
