@@ -11,6 +11,5 @@ storage/framework/testing
 .env
 .env.*.local
 database/database.sqlite
-bootstrap/cache
 tests
 .phpunit.result.cache
