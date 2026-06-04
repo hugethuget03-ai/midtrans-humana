@@ -20,7 +20,14 @@ if (!isset($_ENV['APP_BASE_PATH'])) {
 }
 
 try {
+    // Try to load the application
     $app = require_once $basePath.'/bootstrap/app.php';
+    
+    // Check if the app was created properly
+    if (!($app instanceof Application)) {
+        throw new RuntimeException('Application not properly instantiated');
+    }
+    
     $app->handleRequest(Request::capture());
 } catch (Throwable $e) {
     // If there's an error bootstrapping, return a simple error response
@@ -30,6 +37,10 @@ try {
     echo "Error: " . $e->getMessage() . "\n";
     echo "File: " . $e->getFile() . "\n";
     echo "Line: " . $e->getLine() . "\n";
+    echo "Base Path: " . $basePath . "\n";
+    echo "Bootstrap exists: " . (file_exists($basePath.'/bootstrap/app.php') ? 'YES' : 'NO') . "\n";
+    echo "Vendor exists: " . (file_exists($basePath.'/vendor/autoload.php') ? 'YES' : 'NO') . "\n";
+    echo "Config cache exists: " . (file_exists($basePath.'/bootstrap/cache/config.php') ? 'YES' : 'NO') . "\n";
     if (env('APP_DEBUG')) {
         echo "\nStack Trace:\n";
         echo $e->getTraceAsString();
